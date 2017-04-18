@@ -27,6 +27,7 @@ for i in range(len(sim)):
 
 clust = linkage(sim.values, 'ward')
 
+# Print the visualization, need to change to a function
 plt.title('Hierarchical Clustering Dendrogram (truncated)')
 plt.xlabel('cluster size')
 plt.ylabel('distance')
@@ -41,11 +42,11 @@ dendrogram(
 
 plt.show()
 
-
+# Getting the cluster assignments based on the maximum distance of 20.
 clusters = fcluster(clust, 20, criterion='distance')
 cluster_id = list(zip(sim.index.tolist(), clusters.tolist()))
 
-
+# Get the contents of each cluster
 c = [[]] * len(set(clusters.tolist()))
 for i in cluster_id:
     c[i[1] - 1].append(i[0])

@@ -7,18 +7,19 @@ import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import matplotlib.cm as cm
-from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import scale
 import random
-from collections import OrderedDict
+
 
 # Set the precision to be 7 decimal points
 np.set_printoptions(precision=7, suppress=True)
 
 
+# My assumption was to take the data set and download it myself.
+# I removed the first four lines.
 def get_ingredients_data():
+    np.set_printoptions(precision=7, suppress=True)
     # Read in the CSV data. Note: This csv file is the original file minus the first four rows
     # I changed the name to cluster_set.csv
     df = pd.read_csv("cluster_set.csv", header=0, sep=',', names=['a', 'b', 'dist'])
@@ -114,8 +115,12 @@ def perform_clustering(dist):
     plt.show()
     return
 
-df = get_ingredients_data()
-total = get_list_ingredients(df)
-dist = create_dist_matrix(total, df)
-perform_clustering(dist)
+
+# Function used to make calls to the phase 1 functions.
+def runPhase1():
+    df = get_ingredients_data()
+    total = get_list_ingredients(df)
+    dist = create_dist_matrix(total, df)
+    perform_clustering(dist)
+
 

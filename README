@@ -1,0 +1,40 @@
+Project 2 Phase 1
+CS 5970
+by: Tony Silva
+email: tonysilva.ou@gmail.com
+
+Introduction:
+
+For Project 2 Phase 1 clustering was performed against the Nature.com dataset provided in the class. The nature data came in a format that had ingredients of food and the number of shared compounds between them. The data was transformed into a distance matrix and fed into a K-Means Clustering algorithm. In order to visual the data better, the distance matrix had dimensionality reduction performed against it to generate two Princple Components that were plotted on a 2D graph. The graph then colored each data point to its assigned cluster. The canoncial labels were added in a legend in the graph.
+
+
+Clustering Approach
+
+The clustering approach that was used for this project was the K-Means Clustering approach. In this approach the number of clusters are specified by the user of the algorithm. This made creating the clusters in an easy process. This project can also be reproducible and replicated for different cluster numbers. On top of that the K-Means cluster algorithm equates centroids from the cluster contents. These centroids can also have analysis performed on them as to where they lie. Overrall, the K-Means approach was a solid one. In order to get the data into a usable format a distance matrix was generated. The distance measure had each ingredient's similarity measure against every other ingredients's similarity measure. The similarity measure that was used for the distance matrix was the number of shared compunds between two ingredients. However, since in K-Means clustering attempts to minimize distance, I transformed the distance measurement by performing = 1/(# of shared compounds + 1). This generated a distance measure that could then be minimized by the K-Means algorithm.
+
+Requirements:
+Please see the requirements.txt file in the project folder in order to know what packages are needed to run this package
+You can utilize a virtual environment to download certain packaging requirements and run the program while the virtual environment is activated.
+Please make sure you have internet connection.
+
+Instructions:
+
+Please make sure that the cluster_set.csv file is located in the location you are running the program. So if you are running the command from the ~ folder then please make sure the cluster_set.csv is located there.
+
+The program will take about 30 seconds - 1 minute to run.
+
+Please note - the project2 project folder is contained in another directory called project2_silv6928. This was done for submission purposes.
+First make sure all of the requirements, in the requirements.txt file, (see above) are satisfied. This can be done through a virtual environment.
+Next make sure the the project1 project folder is saved to your home directory (~/). 
+
+Utilize the following command in the Linux Command Terminal.
+
+python3 ./project2/main.py
+
+This will run the program utilizing python3 that you have loaded in your virtual environment (make sure virtual env is activated).
+
+
+
+Language: Python 3
+
+

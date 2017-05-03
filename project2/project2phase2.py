@@ -40,7 +40,7 @@ def create_feature_set():
         all_ingredients.extend(i)
     all_ingredients = nltk.FreqDist(all_ingredients)
     # Get the 2200 most common ingredients
-    ingredient_features = [i[0] for i in all_ingredients.most_common()[:2000]]
+    ingredient_features = [i[0] for i in all_ingredients.most_common()[:2200]]
     # Need to add the target value to the feature set for our algorithms to work
 
     def find_features(document):

@@ -63,10 +63,49 @@ def naive_bayes_model(featuresets):
     nb.fit(train[predictors], train[target])
     predictions = nb.predict(test[predictors])
     actual = test[target].tolist()
-    print(nb.score(test[predictors], test[target]))
     print(classification_report(actual, predictions))
-    print(accuracy_score(actual, predictions))
+    print(nb.score(test[predictors], test[target]))
+
+
+def support_vector_model(featuresets):
+    predictors = list(featuresets.columns.values)[1:]
+    target = list(featuresets.columns.values)[0]
+    train, test = train_test_split(featuresets, test_size=0.3, random_state=44)
+    clf = svm.LinearSVC()
+    clf.fit(train[predictors], train[target])
+    predictions = clf.predict(test[predictors])
+    actual = test[target].tolist()
+    print(classification_report(actual, predictions))
+    print(clf.score(test[predictors], test[target]))
+
+
+def log_reg_model(featuresets):
+    predictors = list(featuresets.columns.values)[1:]
+    target = list(featuresets.columns.values)[0]
+    train, test = train_test_split(featuresets, test_size=0.3, random_state=44)
+    clf = linear_model.LogisticRegression()
+    clf.fit(train[predictors], train[target])
+    predictions = clf.predict(test[predictors])
+    actual = test[target].tolist()
+    print(classification_report(actual, predictions))
+    print(clf.score(test[predictors], test[target]))
+    filename = 'finalized_model.sav'
+    pickle.dump(clf, open(filename, 'wb'))
+
+
+# Returns the loaded classifier from the pickle file
+def load_model():
+    filename = 'finalized_model.sav'
+    clf = pickle.load(open(filename, 'rb'))
+    return clf
+
+# Make a prediction on a single instance
 
 featuresets = create_feature_set()
-naive_bayes_model(featuresets)
+#log_reg_model(featuresets)
+clf = load_model()
 
+temp = featuresets.loc[1, list(featuresets.columns.values)[1:]]
+temp = temp.values.reshape(1, -1)
+print(clf.predict(temp))
+print(featuresets.loc[1, list(featuresets.columns.values)[0]])

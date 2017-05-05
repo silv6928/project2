@@ -77,6 +77,8 @@ def support_vector_model(featuresets):
     actual = test[target].tolist()
     print(classification_report(actual, predictions))
     print(clf.score(test[predictors], test[target]))
+    filename = 'finalized_model.sav'
+    pickle.dump(clf, open(filename, 'wb'))
 
 
 def log_reg_model(featuresets):
@@ -95,17 +97,76 @@ def log_reg_model(featuresets):
 
 # Returns the loaded classifier from the pickle file
 def load_model():
-    filename = 'finalized_model.sav'
+    filename = 'models/finalized_model.sav'
     clf = pickle.load(open(filename, 'rb'))
     return clf
 
 # Make a prediction on a single instance
+# Used to test predictions!
+# temp = featuresets.loc[1, list(featuresets.columns.values)[1:]]
+# temp = temp.values.reshape(1, -1)
+# print(clf.predict(temp))
+# print(featuresets.loc[1, list(featuresets.columns.values)[0]])
 
-featuresets = create_feature_set()
-#log_reg_model(featuresets)
-clf = load_model()
 
-temp = featuresets.loc[1, list(featuresets.columns.values)[1:]]
-temp = temp.values.reshape(1, -1)
-print(clf.predict(temp))
-print(featuresets.loc[1, list(featuresets.columns.values)[0]])
+def grab_df_ingredients():
+    df = pd.read_json("data/yummly.json")
+    col_names = ['id', 'cuisine', 'ingredients']
+    df = df.reindex(columns=col_names)
+    all_ingredients = []
+    for i in df.ingredients:
+        all_ingredients.extend(i)
+    all_ingredients = nltk.FreqDist(all_ingredients)
+    # Get the 2200 most common ingredients
+    ingredient_features = [i[0] for i in all_ingredients.most_common()[:2200]]
+    return df, ingredient_features
+
+
+def user_input_to_feature(document, ingredient_features):
+    ingredients = set(document)
+    feature = {}
+    for i in ingredient_features:
+        feature[i] = (i in ingredients)
+    return feature
+
+
+def ui():
+    print("Welcome to the Cuisine Prediction System!")
+    print("Please wait as the system collects the data")
+    df, ingredient_features = grab_df_ingredients()
+    print("Data Collected!")
+    print("Please enter 1 to proceed with Cuisine Prediction.")
+    print("Enter 0 to Exit the System.")
+    clf = load_model()
+    num = 99
+    while num != 0:
+        num = int(str(input('--> ')))
+        if num == 1:
+            print("You selected Cuisine Prediction")
+            print("You will enter ingredient by ingredient")
+            print("When you have typed in an ingredient press ENTER")
+            print("When you are done please ENTER in the number 5")
+            check = 99
+            recipe = []
+            while check != 5:
+                ing = str(input("Enter Ingredient --> "))
+                if ing == "5":
+                    check = 5
+                    break
+                else:
+                    recipe.append(ing)
+            if len(recipe) == 0:
+                print("You didn't type in any ingredients")
+                print("Welcome to the Cuisine Prediction System!")
+                print("Please enter 1 to proceed with Cuisine Prediction.")
+                print("Enter 0 to Exit the System.")
+            else:
+                # Insert vectorize ingredient list
+                feature = user_input_to_feature(recipe, ingredient_features)
+                temp = pd.Series(feature)
+                temp = temp.values.reshape(1, -1)
+                print("Your Cuisine Type is: ", clf.predict(temp))
+        elif num == 0:
+            print("Thanks for using the Cuisine Predictor")
+        else:
+            print("Please enter a valid input!")

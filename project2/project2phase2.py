@@ -7,14 +7,11 @@ import pandas as pd
 import pickle
 import sklearn
 from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier as KNN
-from sklearn.naive_bayes import MultinomialNB as NB
 from sklearn.naive_bayes import BernoulliNB as NBB
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn import svm
-from sklearn.ensemble import RandomForestClassifier
 from sklearn import linear_model
-
+from scipy.spatial import cKDTree
 # 39774 different Receipes
 # 6714 total unique ingredients
 # Salt is the most common, followed by onions, and olive oil
@@ -32,7 +29,7 @@ from sklearn import linear_model
 
 
 def create_feature_set():
-    df = pd.read_json("yummly.json")
+    df = pd.read_json("data/yummly.json")
     col_names = ['id', 'cuisine', 'ingredients']
     df = df.reindex(columns=col_names)
     all_ingredients = []
@@ -119,7 +116,7 @@ def grab_df_ingredients():
     all_ingredients = nltk.FreqDist(all_ingredients)
     # Get the 2200 most common ingredients
     ingredient_features = [i[0] for i in all_ingredients.most_common()[:2200]]
-    return df, ingredient_features
+    return ingredient_features
 
 
 def user_input_to_feature(document, ingredient_features):
@@ -130,16 +127,26 @@ def user_input_to_feature(document, ingredient_features):
     return feature
 
 
+def find_nearest_neighbors(temp, df):
+    predictors = list(df.columns.values)[1:]
+    df = df[predictors]
+    tree = cKDTree(df)
+    distances, indices = tree.query(temp, k=2)
+    return indices
+
+
 def ui():
     print("Welcome to the Cuisine Prediction System!")
-    print("Please wait as the system collects the data")
-    df, ingredient_features = grab_df_ingredients()
+    print("Please wait as the system collects the data. (This takes 1-2 minutes)")
+    ingredient_features = grab_df_ingredients()
+    featureset = create_feature_set()
     print("Data Collected!")
-    print("Please enter 1 to proceed with Cuisine Prediction.")
-    print("Enter 0 to Exit the System.")
+
     clf = load_model()
     num = 99
     while num != 0:
+        print("Please enter 1 to proceed with Cuisine Prediction.")
+        print("Enter 0 to Exit the System.")
         num = int(str(input('--> ')))
         if num == 1:
             print("You selected Cuisine Prediction")
@@ -166,6 +173,8 @@ def ui():
                 temp = pd.Series(feature)
                 temp = temp.values.reshape(1, -1)
                 print("Your Cuisine Type is: ", clf.predict(temp))
+                print("Finding the 3 Closest Recipe IDs")
+                # print(find_nearest_neighbors(temp, featureset))
         elif num == 0:
             print("Thanks for using the Cuisine Predictor")
         else:

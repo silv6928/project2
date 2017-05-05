@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8abd03fe-4442-4c2f-b369-fb841aac08d1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/project2/ui.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cluster_set.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yummly.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project2/finalized_model.sav" afterPath="$PROJECT_DIR$/project2/finalized_model.sav" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project2/project2phase2.py" afterPath="$PROJECT_DIR$/project2/project2phase2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="project2phase2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project2/project2phase2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="167" column="40" lean-forward="true" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
+            <state relative-caret-position="1165">
+              <caret line="171" column="76" lean-forward="true" selection-start-line="171" selection-start-column="76" selection-end-line="171" selection-end-column="76" />
               <folding>
                 <element signature="e#48#59#0" expanded="true" />
               </folding>
@@ -594,13 +593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -651,10 +643,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project2/project2phase2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="167" column="40" lean-forward="true" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
+        <state relative-caret-position="1165">
+          <caret line="171" column="76" lean-forward="true" selection-start-line="171" selection-start-column="76" selection-end-line="171" selection-end-column="76" />
           <folding>
             <element signature="e#48#59#0" expanded="true" />
           </folding>

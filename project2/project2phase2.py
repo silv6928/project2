@@ -11,7 +11,7 @@ from sklearn.naive_bayes import BernoulliNB as NBB
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn import svm
 from sklearn import linear_model
-from scipy.spatial import cKDTree
+from sklearn.neighbors import NearestNeighbors
 # 39774 different Receipes
 # 6714 total unique ingredients
 # Salt is the most common, followed by onions, and olive oil
@@ -129,10 +129,9 @@ def user_input_to_feature(document, ingredient_features):
 
 def find_nearest_neighbors(temp, df):
     predictors = list(df.columns.values)[1:]
-    df = df[predictors]
-    tree = cKDTree(df)
-    distances, indices = tree.query(temp, k=2)
-    return indices
+    knn = NearestNeighbors(n_neighbors=2, algorithm='auto',).fit(df[predictors])
+    indices = knn.kneighbors(temp, 2, return_distance=False)
+    return indices[0][0], indices[0][1]
 
 
 def ui():
@@ -164,17 +163,14 @@ def ui():
                     recipe.append(ing)
             if len(recipe) == 0:
                 print("You didn't type in any ingredients")
-                print("Welcome to the Cuisine Prediction System!")
-                print("Please enter 1 to proceed with Cuisine Prediction.")
-                print("Enter 0 to Exit the System.")
             else:
                 # Insert vectorize ingredient list
                 feature = user_input_to_feature(recipe, ingredient_features)
                 temp = pd.Series(feature)
                 temp = temp.values.reshape(1, -1)
                 print("Your Cuisine Type is: ", clf.predict(temp))
-                print("Finding the 3 Closest Recipe IDs")
-                # print(find_nearest_neighbors(temp, featureset))
+                print("Finding the 2 Closest Recipe IDs (This takes 1-2 minutes)")
+                print("Your Recipe IDs are: ", find_nearest_neighbors(temp, featureset))
         elif num == 0:
             print("Thanks for using the Cuisine Predictor")
         else:

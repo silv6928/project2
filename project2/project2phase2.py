@@ -5,6 +5,7 @@ import nltk
 import numpy as np
 import pandas as pd
 import pickle
+import os, sys
 import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import BernoulliNB as NBB
@@ -29,7 +30,8 @@ from sklearn.neighbors import NearestNeighbors
 
 
 def create_feature_set():
-    df = pd.read_json("data/yummly.json")
+    dir_path = os.path.dirname(sys.argv[0])
+    df = pd.read_json(dir_path + "/data/yummly.json")
     col_names = ['id', 'cuisine', 'ingredients']
     df = df.reindex(columns=col_names)
     all_ingredients = []
@@ -94,8 +96,9 @@ def log_reg_model(featuresets):
 
 # Returns the loaded classifier from the pickle file
 def load_model():
-    filename = 'models/finalized_model.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    dir_path = os.path.dirname(sys.argv[0])
+    filename = "/models/finalized_model.sav"
+    clf = pickle.load(open(dir_path + filename, 'rb'))
     return clf
 
 # Make a prediction on a single instance
@@ -107,7 +110,8 @@ def load_model():
 
 
 def grab_df_ingredients():
-    df = pd.read_json("data/yummly.json")
+    dir_path = os.path.dirname(sys.argv[0])
+    df = pd.read_json(dir_path + "/data/yummly.json")
     col_names = ['id', 'cuisine', 'ingredients']
     df = df.reindex(columns=col_names)
     all_ingredients = []
@@ -140,7 +144,6 @@ def ui():
     ingredient_features = grab_df_ingredients()
     featureset = create_feature_set()
     print("Data Collected!")
-
     clf = load_model()
     num = 99
     while num != 0:

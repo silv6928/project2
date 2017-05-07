@@ -64,12 +64,19 @@ A recipe was a "document", and each ingredient is a feautre.
 The yummly.json data was downloaded locally.
 
 
-
 Requirements:
 Please see the requirements.txt file in the project folder in order to know what packages are needed to run this package
 You can utilize a virtual environment to download certain packaging requirements and run the program while the virtual environment is activated.
 Please make sure you have internet connection.
 
+
+Works Cited:
+
+The sentdex videos from Unit 8 was a huge help on how to create/generate feature sets based on "documents". The videos can be found on sentdex's youtube channel. 
+
+https://www.youtube.com/channel/UCfzlCWGWYyIQ0aLC5w48gBQ
+
+Yummly.com Data set by Jovanovik, Bogojeska, Trajanov, Kocarev
 
 
 ##################################################################

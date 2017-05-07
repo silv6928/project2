@@ -1,3 +1,81 @@
+Project 2 Phase 2
+CS 5970 - Text Analytics
+by: Tony Silva
+email tonysilva.ou@gmail.com
+
+Project 2 Phase 2
+
+In Phase 2 of Project 2, a few different activities were performed. The Yummly data set was used for this phase of the project
+
+Data Preprocessing:
+
+First, data preprocessing was performed in order to transform the Yummly data set into a feature set. The features of the feature set were the different ingredients found in all of the recipes in the yummly data. A frequency distribution was generated against the all of the recipes and only the 2200 most frequent ingredients were used to create features inside the feature set. In the feature set, each row specified a different recipe. The contents of a cell of the feature set was True or False. True, declared that the ingredient specified by that feature/column was in that recipe row. False, declared that the ingredient was not located in that recipe row.
+
+Data Facts
+39774 different Receipes
+6714 total unique ingredients
+20 different cuisines
+Salt is the most common, followed by onions, and olive oil
+
+Predictive Modeling:
+
+Predictive models were generated against the feature set created from the preprocessing activities. The goal of predictive modeling was to predict the type of cuisine a recipe is. The predictive models consisted of Naive Bayes, Support Vector Machine, and Logisitic Regression. For training each of these models against the feature set, a training set of 70% of the total data was created. Testing was performed against the other 30% of the data. Based on the test data, the Naive Bayes had an accuracy of 73%, Support Vector Machine had an accuracy of 75%, and Logisitic Regression had an accuracy of 75%. The Support Vector Machine model was selected to perform the predictions in the Cuisine Prediction System (see below section). The model was saved utilizing the pickle library in Python. The model is loaded by the user interface to make predictions against a user defined recipe.
+
+
+K-Nearest Neighbor Search:
+
+A function was created to perform K-Nearest Neighbors search against user input. This function is called from the user interface (see below section). This search would go through the feature set created in the preprocessing activities and find the two nearest neighbors to the user's recipe. It then returns the recipe IDs of those neighbors.
+
+Cuisine Prediction System:
+
+The Cuisine Prediction System is the user's interface to the predictive model and K-Nearest Neighbor search. The system will load the data and it will take about 1-2 minutes. Then the user has two initial options, to either proceed to the system or exit. If the user inputs any other option then the system will tell the user it was invalid input and then it will allow the user to input the options again until they enter a valid input. When the user selects the to proceed, the system will prompt the user to enter an ingredient and press enter to add it to their list of ingredients of their recipe. Each ingredient must be entered on a new line. Multiple ingredeints should not be added at once. When the user is done with entering ingredients they must enter in the number 5. This will then predict their cuisine based on the predicitive model, and then perform K-Nearest Neighbor search. It will then spit out the prediction and the two nearest cuisine IDs.
+
+
+How to run:
+
+Please note - the project2 project folder is contained in another directory called project2_silv6928. This was done for submission purposes.
+First make sure all of the requirements, in the requirements.txt file, (see below) are satisfied. This can be done through a virtual environment.
+Next make sure the the project2 project folder is saved to your home directory (~/). 
+Utilize the following command in the Linux Command Terminal.
+
+python3 ./project2/main.py
+
+This will run the program utilizing python3 that you have loaded in your virtual environment (make sure virtual env is activated).
+
+The user interface will then begin, data will be loaded. Then you will be prompted to proceed. 1 - to proceed, 0 - to exit. Enter 1. Then you can enter ingredients one by one. For example, I type in salt, then I click ENTER. Then I type in milk, then I click ENTER. When you are done entering ingredients enter the number 5 into the interface. This will then run the prediction and K-Nearest Neighbor. The K-Nearest Neighbor takes about a minute to run. When this is performed it will take you back to the start and you can run it again.
+
+Test Case:
+
+Italian cheese
+Italian bread
+Italian seasoned breadcrumbs
+Italian turkey sausage
+Italian parsley leaves
+
+This will return ['italian'] and two recipe IDs. I used this a lot for testing.
+
+
+Assumptions:
+
+No need to re-run Phase 1 in Phase 2 since the Phase 1 was already turned in and Phase 2 has different requirements
+
+A recipe was a "document", and each ingredient is a feautre.
+
+The yummly.json data was downloaded locally.
+
+
+
+Requirements:
+Please see the requirements.txt file in the project folder in order to know what packages are needed to run this package
+You can utilize a virtual environment to download certain packaging requirements and run the program while the virtual environment is activated.
+Please make sure you have internet connection.
+
+
+
+##################################################################
+############## PHASE 1 README BELOW ##############################
+
+
 Project 2 Phase 1
 CS 5970
 by: Tony Silva
